@@ -1,7 +1,7 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import { View, Text, Button, StyleSheet} from 'react-native';
+import { View, Text, Button, Image, StyleSheet, Animated} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -17,7 +17,7 @@ function App() {
     <SafeAreaProvider>
     <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeScreen} options = {{title : '메인화면'}} />
+          <Stack.Screen name="Home" component={HomeScreen} options = {{title : 'home'}} />
           <Stack.Screen name="Details" component={DetailsScreen} />
           <Stack.Screen name="Blue" component={BlueScreen} />
           <Stack.Screen name="FileUpload" component={FileUploadScreen} />
@@ -29,8 +29,18 @@ function App() {
 
 const Style = StyleSheet.create({
   testStyle:{
-    color: 'red'
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 30,
   }
-});
+  });
+  const Styleh2 = StyleSheet.create({
+    h2: {
+      fontSize: 8.
+    }
+  });
+
+
+
 
 export default App;
