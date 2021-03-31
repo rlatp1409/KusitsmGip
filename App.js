@@ -17,7 +17,7 @@ function App() {
     <SafeAreaProvider>
     <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeScreen} options = {{title : 'home'}} />
+          <Stack.Screen name="Home" component={HomeScreen} options = {{title : '큐시즘 개발 6조 X 요즘것들'}} />
           <Stack.Screen name="Details" component={DetailsScreen} />
           <Stack.Screen name="Blue" component={BlueScreen} />
           <Stack.Screen name="FileUpload" component={FileUploadScreen} />
@@ -34,11 +34,9 @@ const Style = StyleSheet.create({
     fontSize: 30,
   }
   });
-  const Styleh2 = StyleSheet.create({
-    h2: {
-      fontSize: 8.
-    }
-  });
+
+  
+
 
 
 
