@@ -21,6 +21,7 @@ function FileUploadScreen({navigation}){
     // create an array of objects of the files you want to upload
     var files = [
       {
+        name: 'file',
         filename: 'KakaoTalkChats.txt',
         filepath: path,
         filetype: 'text/plain'
@@ -50,7 +51,7 @@ function FileUploadScreen({navigation}){
     }).promise.then((response) => {
         console.log('response', response)
         if (response.statusCode == 200) {
-          alert('FILES UPLOADED!'); // response.statusCode, response.headers, response.body
+          navigation.navigate('Result', { body : response.body })
         } else {
           alert('SERVER ERROR');
         }

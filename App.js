@@ -9,6 +9,7 @@ import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import BlueScreen from './screens/BlueScreen';
 import FileUploadScreen from './screens/FileUploadScreen';
+import ResultScreen from './screens/ResultScreen';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ function App() {
           <Stack.Screen name="Details" component={DetailsScreen} />
           <Stack.Screen name="Blue" component={BlueScreen} />
           <Stack.Screen name="FileUpload" component={FileUploadScreen} />
+          <Stack.Screen name="Result" component={ResultScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
