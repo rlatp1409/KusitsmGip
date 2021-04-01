@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 // Import core components
 import {
-  StyleSheet,
-  View,
+  StyleSheet, View, Modal, PermissionsAndroid, 
   TouchableOpacity, Image, StatusBar, Dimensions
 } from 'react-native';
+
+import ImageViewer from 'react-native-image-zoom-viewer';
 import { RadioButton, Text } from 'react-native-paper';
 import RNFS from 'react-native-fs';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,6 +14,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 function FileUploadScreen({navigation}){
   const [katalkList, setKatalkList] = useState(null);
   const [value, setValue] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE)
+  .then((value)=>{
+    if(!value)
+      requestPermission();
+  })
 
   const uploadFile = () => {
     var path = katalkList[katalkList.length - 1 - value].path + '/KakaoTalkChats.txt';
@@ -60,7 +69,7 @@ function FileUploadScreen({navigation}){
         if(err.description === "cancelled") {
           // cancelled by user
         }
-        alert('Error occured');
+        alert(err);
         console.log(err);
       });
   }
@@ -79,9 +88,33 @@ function FileUploadScreen({navigation}){
     })
   }
 
+  const requestPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: "Read External Permission",
+          message:
+            "Our App needs access to your Kakaotalk text file " +
+            "so you can find out free rider!",
+          buttonNeutral: "Ask Me Later",
+          buttonNegative: "Cancel",
+          buttonPositive: "OK"
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("You can use the external storage");
+      } else {
+        console.log("Permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
   var renderKatalkList = []
   if(katalkList != null){
-    renderKatalkList = katalkList.slice(-5).reverse().map((katalkInfo, index) => (
+    renderKatalkList = katalkList.slice(-3).reverse().map((katalkInfo, index) => (
         <View style={styles.radioGroupStyle} key = {index}>
           <RadioButton value={index} />
           <Text>{katalkInfo.name}</Text>
@@ -91,6 +124,25 @@ function FileUploadScreen({navigation}){
   }
 
   var {height, width} = Dimensions.get('window');
+  var images = [{
+    url: '',
+    props: {
+      source: require('../image/Inst1.png'),
+      style: {width: width ,height: 220, alignItems: 'center'}
+    }
+  },{
+    url: '',
+    props: {
+      source: require('../image/Inst2.png'),
+      style: {width: width ,height: 220, alignItems: 'center'}
+    }
+  },{
+    url: '',
+    props: {
+      source: require('../image/Inst3.png'),
+      style: {width: width ,height: 220, alignItems: 'center'}
+    }
+  }]
 
   return (
     <View style={styles.mainBody}>
@@ -98,7 +150,28 @@ function FileUploadScreen({navigation}){
         <Text style={{ fontSize: 23, alignItems: 'flex-start' , fontWeight:"bold", padding: 20}}>
           ⚠️ How to use it
         </Text>
-        <Image source={require('../image/그림1.png')} style={{width: width ,height: 220, alignItems: 'center'}}/>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <TouchableOpacity
+            onPress={() => setModalVisible(true)}
+          >
+            <Image source={require('../image/그림1.png')} style={{width: width, height: 220}}></Image>
+          </TouchableOpacity>
+        </View>
+        <Modal
+          visible={modalVisible}
+          transparent={true}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <ImageViewer
+            imageUrls={images}
+            index={index}
+            onSwipeDown={() => {
+              console.log('onSwipeDown');
+            }}
+            onMove={data => console.log(data)}
+            enableSwipeDown={true}
+          />
+        </Modal>
         <Text
           style={{
             fontSize: 14,
