@@ -21,7 +21,7 @@ function HomeScreen({ navigation }) {
           당신이 그를 손쉽게 처리할 수 있도록 '프리라이더'를 알려드리죠.
           </Text>
         <Text style = {{fontWeight: "bold", fontSize: 15, padding: 7}}> 
-          선택은 당신에 몫입니다.</Text>
+          선택은 당신의 몫입니다.</Text>
       <TouchableOpacity
         style={Style.buttonStyle}
         activeOpacity={0.5}
