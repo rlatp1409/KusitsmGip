@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, StyleSheet, font, Image} from 'react-native';
+import { View, Text, Button, StyleSheet, font, Image, TouchableOpacity} from 'react-native';
 import { white } from 'react-native-paper/lib/typescript/styles/colors';
 
 function HomeScreen({ navigation }) {
@@ -22,29 +22,41 @@ function HomeScreen({ navigation }) {
           </Text>
         <Text style = {{fontWeight: "bold", fontSize: 15, padding: 7}}> 
           선택은 당신에 몫입니다.</Text>
-      <Button style = {{padding: 7, margin: 7}}
-        title="Go to File upload"
-        onPress={() => navigation.navigate('FileUpload')}
-      />
+      <TouchableOpacity
+        style={Style.buttonStyle}
+        activeOpacity={0.5}
+        onPress={() => navigation.navigate('FileUpload')}>
+        <Text style={Style.buttonTextStyle}>Find Out</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const Style = StyleSheet.create({
     testStyle:{
-        color: 'black',
-        fontSize: 30,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    }
-  });
-
-const Style2 = StyleSheet.create({
-  textStyle:{
-      flex: 1,
-      fontSize: 6,
-      textAlign: 'center',
-    }
+      color: 'black',
+      fontSize: 30,
+      fontWeight: 'bold',
+      marginBottom: 10,
+    },
+    buttonStyle: {
+      backgroundColor: '#307ecc',
+      borderWidth: 0,
+      color: '#FFFFFF',
+      borderColor: '#307ecc',
+      width: 120,
+      height: 40,
+      alignItems: 'center',
+      borderRadius: 30,
+      marginLeft: 35,
+      marginRight: 35,
+      marginTop: 15,
+    },
+    buttonTextStyle: {
+      color: '#FFFFFF',
+      paddingVertical: 10,
+      fontSize: 16,
+    },
 });
 
 
